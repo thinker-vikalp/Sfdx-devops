@@ -19,4 +19,4 @@ jobs:
       - name: install salsforce code analyser
         run: |
             sf -help
-            sf plugin install code analyser
+            sf plugin install code-analyser

@@ -1,0 +1,22 @@
+name: Salesforce Pipeline
+run-name: Sandbox Pipeline running
+
+on: 
+  push:
+
+jobs:
+  setup-salesforce:
+    name: setup salesforce
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: setup salesforce cli
+        run: npm install --global @salesforce/cli@latest
+
+      - name: check cli version
+        run: sf --version
+
+      - name: install salsforce code analyser
+        run: |
+            sf -help
+            sf plugin install code analyser

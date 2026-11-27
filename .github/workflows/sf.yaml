@@ -31,4 +31,4 @@ jobs:
         run: sf plugins
 
       - name: Authenticate with Salesforce
-        run: sf org login sfdx-url --sfdx-url-file tmp/authFile.txt --set-default --alias fslSandbox
+        run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias fslSandbox

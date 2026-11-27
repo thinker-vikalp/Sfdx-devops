@@ -1,3 +1,4 @@
+
 name: Salesforce Pipeline
 
 run-name: Sandbox Pipeline running
@@ -12,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       - name: Setup Salesforce CLI
         run: npm install --global @salesforce/cli@latest
 
@@ -31,4 +32,24 @@ jobs:
         run: sf plugins
 
       - name: Authenticate with Salesforce
-        run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias fslSandbox
+        run: |
+          sf org login sfdx-url \
+            --sfdx-url-file tmp/authfile.txt \
+            --set-default \
+            --alias fslSandbox
+
+      - name: Validate Deployment
+        run: |
+          sf project deploy validate \
+            --target-org fslSandbox \
+            --manifest manifest/package.xml \
+            --test-level RunLocalTests \
+            --wait 60
+
+      - name: Deploy Components to Salesforce
+        run: |
+          sf project deploy start \
+            --target-org fslSandbox \
+            --manifest manifest/package.xml \
+            --test-level RunLocalTests \
+            --wait 60

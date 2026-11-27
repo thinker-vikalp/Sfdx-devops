@@ -32,3 +32,7 @@ jobs:
 
       - name: Authenticate with Salesforce
         run: sf org login sfdx-url --sfdx-url-file tmp/authfile.txt --set-default --alias fslSandbox
+
+      - name: Validate Deployed Component to Salesforce
+        run:    
+        
